@@ -1,7 +1,9 @@
 package com.shijiawei.storylens.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("novel")
 public class Novel {
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private String title;
     private String author;
@@ -17,6 +19,10 @@ public class Novel {
     private String filePath;
     private String fileType;
     private String imageUrl;
+    
+    @TableLogic
+    private Integer isDeleted;
+    
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
