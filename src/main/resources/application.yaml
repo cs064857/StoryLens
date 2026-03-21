@@ -1,6 +1,11 @@
 spring:
   application:
     name: StoryLens
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 langchain4j:
   openai:
     chat-model:
@@ -9,3 +14,7 @@ langchain4j:
       model-name: ${OPENAI_MODEL}
       log-requests: true
       log-responses: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
