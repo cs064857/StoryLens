@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: StoryLens
+langchain4j:
+  openai:
+    chat-model:
+      base-url: ${OPENAI_BASEURL}
+      api-key: ${OPENAI_APIKEY}
+      model-name: ${OPENAI_MODEL}
+      log-requests: true
+      log-responses: true
