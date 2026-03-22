@@ -136,17 +136,12 @@ public class ChatCompletionServiceImpl implements ChatCompletionService {
 
     @Override
     public R<String> handleChatCompletion(String message) {
-        try {
-            chatCompletion(message);
-            boolean isStream = isStream(message);
-            if (isStream) {
-                return R.ok("Test");
-            } else {
-                return R.ok("Test2");
-            }
-        } catch (Exception e) {
-            log.error("聊天處理失敗: {}", e.getMessage(), e);
-            return R.error("聊天處理失敗: " + e.getMessage());
+        chatCompletion(message);
+        boolean isStream = isStream(message);
+        if (isStream) {
+            return R.ok("Test");
+        } else {
+            return R.ok("Test2");
         }
     }
 
