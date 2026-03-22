@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -12,8 +13,11 @@ import java.time.LocalDateTime;
 @TableName("character_weapon")
 public class CharacterWeapon {
     @TableId(type = IdType.ASSIGN_ID)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long characterId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long weaponId;
     
     @TableLogic
