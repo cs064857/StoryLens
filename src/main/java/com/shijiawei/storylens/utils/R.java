@@ -85,6 +85,14 @@ public class R<T> {
         return new R<T>(HttpCodeEnum.OPERATION_ERR.getCode(), code);
     }
 
+    public static <T> R<T> error(HttpCodeEnum httpCodeEnum) {
+        return new R<>(httpCodeEnum.getCode(), httpCodeEnum.getDescription());
+    }
+
+    public static <T> R<T> error(String code, String msg) {
+        return new R<>(code, msg);
+    }
+
     /**
      * 錯誤,參數為自訂訊息、校驗異常資訊(校驗屬性與錯誤原因)
      *

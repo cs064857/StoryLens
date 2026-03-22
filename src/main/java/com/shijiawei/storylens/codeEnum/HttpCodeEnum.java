@@ -51,6 +51,21 @@ public enum HttpCodeEnum {
     VERIFY_ERR("500", "參數格式不合法,請檢查後重試!"),
 
     /**
+     * 請求參數不正確
+     */
+    BAD_REQUEST("400", "請求參數不正確!"),
+
+    /**
+     * 帳號未登入
+     */
+    UNAUTHORIZED("401", "帳號未登入!"),
+
+    /**
+     * 系統異常
+     */
+    INTERNAL_SERVER_ERROR("500", "系統異常!"),
+
+    /**
      * 未知異常
      */
     UNKNOWN_ERR("600","未知異常");
