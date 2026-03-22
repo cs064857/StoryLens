@@ -1,5 +1,7 @@
 package com.shijiawei.storylens.service.inter;
 
+import com.shijiawei.storylens.utils.R;
+
 /**
  * ClassName: ChatCompletionService
  * Description:
@@ -11,5 +13,6 @@ public interface ChatCompletionService {
 
     String chatCompletion(String message);
 
+    R<String> handleChatCompletion(String message);
 
 }

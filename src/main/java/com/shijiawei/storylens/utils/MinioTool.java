@@ -873,6 +873,25 @@ public class MinioTool {
     }
     /****************************************/
 
+    /**
+     * 獲取檔案的 InputStream
+     */
+    public InputStream getObjectInputStream(String bucketName, String objectName) throws Exception {
+        return minioClient.getObject(GetObjectArgs.builder()
+                .bucket(bucketName)
+                .object(objectName)
+                .build());
+    }
+
+    /**
+     * 獲取檔案內容字串 (以 UTF-8 讀取)
+     */
+    public String getObjectAsString(String bucketName, String objectName) throws Exception {
+        try (InputStream inputStream = getObjectInputStream(bucketName, objectName)) {
+            return cn.hutool.core.io.IoUtil.readUtf8(inputStream);
+        }
+    }
+
     /********************* 下載操作 **********/
     /**
      * 簡單下載，直接下載單文件

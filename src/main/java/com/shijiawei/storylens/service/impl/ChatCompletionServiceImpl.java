@@ -1,7 +1,11 @@
 package com.shijiawei.storylens.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shijiawei.storylens.service.inter.ChatCompletionService;
 import com.shijiawei.storylens.tools.CalculatorTool;
+import com.shijiawei.storylens.utils.R;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecifications;
 import dev.langchain4j.data.message.AiMessage;
@@ -30,6 +34,9 @@ public class ChatCompletionServiceImpl implements ChatCompletionService {
 
     @Autowired
     private ChatModel chatModel;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     @Override
@@ -113,7 +120,7 @@ public class ChatCompletionServiceImpl implements ChatCompletionService {
 
             ChatRequest request2 = ChatRequest.builder()
                     .messages(
-                            UserMessage.from("123 加 456 等於多少？"), // 原始提問
+                            UserMessage.from("123加 456等於多少？"), // 原始提問
                             aiMessage, // 第一輪模型的回覆 (包含 ToolExecutionRequest)
                             toolResultMessage // 你執行的結果回報
                     )
@@ -127,4 +134,32 @@ public class ChatCompletionServiceImpl implements ChatCompletionService {
         return "";
     }
 
+    @Override
+    public R<String> handleChatCompletion(String message) {
+        try {
+            chatCompletion(message);
+            boolean isStream = isStream(message);
+            if (isStream) {
+                return R.ok("Test");
+            } else {
+                return R.ok("Test2");
+            }
+        } catch (Exception e) {
+            log.error("聊天處理失敗: {}", e.getMessage(), e);
+            return R.error("聊天處理失敗: " + e.getMessage());
+        }
+    }
+
+    private boolean isStream(String message) {
+        try {
+            JsonNode jsonNode = objectMapper.readTree(message);
+            if (jsonNode.isEmpty()) {
+                return false;
+            }
+            return jsonNode.path("stream").asBoolean();
+        } catch (JsonProcessingException e) {
+            log.warn("解析串流參數失敗，預設為非串流: {}", e.getMessage());
+            return false;
+        }
+    }
 }
